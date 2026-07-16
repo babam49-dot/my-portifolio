@@ -386,7 +386,7 @@ header.scrolled .nav-container {
   width: 42%;
   max-width: 580px;
   height: auto;
-  z-index: 2;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -419,7 +419,7 @@ header.scrolled .nav-container {
 
 .hero-wrapper {
   position: relative;
-  z-index: 3;
+  z-index: 2;
   width: 100%;
   max-width: 680px;
 }
@@ -495,11 +495,11 @@ header.scrolled .nav-container {
 
 .hero-roles-ticker {
   width: 100%;
+  max-width: 680px;
   overflow: hidden;
   white-space: nowrap;
   margin-bottom: 2rem;
   position: relative;
-  z-index: 1;
   mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
 }

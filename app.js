@@ -478,7 +478,7 @@ function initGsapAnimations() {
     { opacity: 1, y: 0, duration: 1.2, ease: 'power4.out', stagger: 0.15 }
   );
   
-  gsap.fromTo('.hero-sub, .hero-actions',
+  gsap.fromTo('.hero-bottom',
     { opacity: 0, y: 40 },
     { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.6 }
   );

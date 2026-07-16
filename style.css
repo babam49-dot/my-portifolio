@@ -546,11 +546,14 @@ header.scrolled .nav-container {
 }
 
 .hero-actions {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 2rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1.2rem;
   align-items: center;
-  margin-bottom: 4rem;
+  z-index: 5;
 }
 
 .hero-actions .btn-arrow {

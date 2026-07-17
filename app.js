@@ -445,7 +445,7 @@ function initContactForm() {
       
       if (data.success === 'true' || data.success === true) {
         statusEl.className = 'form-status success';
-        statusEl.textContent = 'Thank you! Your message has been sent successfully.';
+        statusEl.textContent = 'Message Sent Successfully!';
         statusEl.style.display = 'block';
         form.reset();
       } else {

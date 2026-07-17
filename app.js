@@ -398,13 +398,14 @@ function initContactForm() {
   if (!form || !statusEl) return;
   
   form.addEventListener('submit', (e) => {
+    e.preventDefault(); // Always prevent default submission to avoid redirects
+    
     const name = form.querySelector('#form-name').value.trim();
     const email = form.querySelector('#form-email').value.trim();
     const message = form.querySelector('#form-message').value.trim();
     const btn = form.querySelector('button[type="submit"]');
     
     if (!name || !email || !message) {
-      e.preventDefault();
       statusEl.className = 'form-status error';
       statusEl.textContent = 'Please fill out all fields.';
       statusEl.style.display = 'block';
@@ -412,19 +413,27 @@ function initContactForm() {
     }
     
     const originalText = btn.innerHTML;
-    
-    // Fallback: If running from file:// protocol, AJAX is blocked by CORS.
-    // Let standard HTML post submission redirect to FormSubmit.
-    if (window.location.protocol === 'file:') {
-      btn.disabled = true;
-      btn.innerHTML = 'Redirecting...';
-      return; 
-    }
-    
-    e.preventDefault();
     btn.disabled = true;
     btn.innerHTML = 'Sending Message...';
     statusEl.style.display = 'none';
+    
+    // Local demo simulation: If running from file:// protocol, bypass CORS block
+    // and mock successful submission so UI can be tested locally without redirects.
+    if (window.location.protocol === 'file:') {
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        statusEl.className = 'form-status success';
+        statusEl.textContent = 'Message Sent Successfully! (Local Demo)';
+        statusEl.style.display = 'block';
+        form.reset();
+        
+        setTimeout(() => {
+          statusEl.style.display = 'none';
+        }, 5000);
+      }, 1000);
+      return; 
+    }
     
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData);

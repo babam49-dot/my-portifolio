@@ -289,12 +289,16 @@ function initTestimonialCarousel() {
     totalNum.textContent = String(slides.length).padStart(2, '0');
   }
   
-  function updateCarousel(newIndex) {
+  function updateCarousel(newIndex, direction = 'next') {
     if (newIndex < 0) newIndex = slides.length - 1;
     if (newIndex >= slides.length) newIndex = 0;
     
-    slides[currentIndex].classList.remove('active');
-    slides[newIndex].classList.add('active');
+    slides.forEach(slide => {
+      slide.classList.remove('active', 'slide-in-right', 'slide-in-left');
+    });
+    
+    const animationClass = direction === 'next' ? 'slide-in-right' : 'slide-in-left';
+    slides[newIndex].classList.add('active', animationClass);
     
     currentIndex = newIndex;
     
@@ -304,14 +308,14 @@ function initTestimonialCarousel() {
   }
   
   if (prevBtn) {
-    prevBtn.addEventListener('click', () => updateCarousel(currentIndex - 1));
+    prevBtn.addEventListener('click', () => updateCarousel(currentIndex - 1, 'prev'));
   }
   if (nextBtn) {
-    nextBtn.addEventListener('click', () => updateCarousel(currentIndex + 1));
+    nextBtn.addEventListener('click', () => updateCarousel(currentIndex + 1, 'next'));
   }
 
   // Auto-advance every 5 seconds
-  setInterval(() => updateCarousel(currentIndex + 1), 5000);
+  setInterval(() => updateCarousel(currentIndex + 1, 'next'), 5000);
 }
 
 
@@ -394,38 +398,45 @@ function initContactForm() {
   if (!form || !statusEl) return;
   
   form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
     const name = form.querySelector('#form-name').value.trim();
     const email = form.querySelector('#form-email').value.trim();
     const message = form.querySelector('#form-message').value.trim();
     const btn = form.querySelector('button[type="submit"]');
     
     if (!name || !email || !message) {
+      e.preventDefault();
       statusEl.className = 'form-status error';
       statusEl.textContent = 'Please fill out all fields.';
       statusEl.style.display = 'block';
       return;
     }
     
-    // Save original button text
     const originalText = btn.innerHTML;
+    
+    // Fallback: If running from file:// protocol, AJAX is blocked by CORS.
+    // Let standard HTML post submission redirect to FormSubmit.
+    if (window.location.protocol === 'file:') {
+      btn.disabled = true;
+      btn.innerHTML = 'Redirecting...';
+      return; 
+    }
+    
+    e.preventDefault();
     btn.disabled = true;
     btn.innerHTML = 'Sending Message...';
     statusEl.style.display = 'none';
     
-    // Real API Submission using FormSubmit.co
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData);
+    
+    // Real API Submission using FormSubmit.co AJAX
     fetch('https://formsubmit.co/ajax/tewanayzewudu49@gmail.com', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        message: message
-      })
+      body: JSON.stringify(payload)
     })
     .then(response => response.json())
     .then(data => {

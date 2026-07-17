@@ -450,7 +450,7 @@ function initContactForm() {
         form.reset();
       } else {
         statusEl.className = 'form-status error';
-        statusEl.textContent = 'Oops! Something went wrong. Please try again.';
+        statusEl.textContent = data.message || 'Oops! Something went wrong. Please try again.';
         statusEl.style.display = 'block';
       }
       

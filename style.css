@@ -1729,8 +1729,56 @@ footer {
 
 /* Responsive Breakpoints */
 @media (max-width: 1024px) {
-  .hero-bg-photo-wrap {
-    display: none;
+  .hero {
+    min-height: auto;
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-photo-wrap {
+    display: none; /* Hide the absolute hero photo on tablet/mobile */
+  }
+  .hero-wrapper {
+    max-width: 100%;
+  }
+  .hero-huge-text {
+    font-size: clamp(3rem, 10vw, 6.5rem);
+    white-space: normal;
+  }
+  .hero-photo-note {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    max-width: 580px;
+    padding: 0 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .hero-photo-note p {
+    text-shadow: none;
+  }
+  .hero-actions {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    padding: 0 2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  .hero-social-bar {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    padding: 0 2rem;
+    margin-top: 0;
+  }
+  .hero-roles-ticker {
+    position: relative;
+    bottom: auto;
+    margin-top: 3rem;
   }
   section {
     padding: 6rem 0;
@@ -1772,6 +1820,36 @@ footer {
   .menu-toggle {
     display: flex;
   }
+  .hero {
+    min-height: auto;
+    padding-top: 7rem;
+    padding-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero > .container {
+    order: 1;
+    width: 100%;
+  }
+  .hero-huge-text {
+    font-size: clamp(2.4rem, 11vw, 4.4rem);
+    white-space: normal;
+    word-break: break-word;
+    line-height: 0.9;
+    margin-bottom: 1.5rem;
+  }
+  .hero-photo-note {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    order: 2;
+  }
   .hero-actions {
     position: relative;
     bottom: auto;
@@ -1780,16 +1858,36 @@ footer {
     align-items: flex-start;
     gap: 0.9rem;
     width: 100%;
-    margin-top: 2rem;
+    padding: 0 2rem;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    order: 3;
+  }
+  .hero-btns {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
   }
   .hero-actions .btn {
     width: 100%;
+    justify-content: center;
   }
   .hero-social-bar {
     position: relative;
     bottom: auto;
     left: auto;
-    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0 2rem;
+    margin-top: 0;
+    order: 4;
+  }
+  .hero-roles-ticker {
+    position: relative;
+    bottom: auto;
+    margin-top: 3rem;
+    margin-bottom: 0;
+    width: 100vw;
+    order: 5;
   }
   .stat-card {
     padding: 1.5rem;
